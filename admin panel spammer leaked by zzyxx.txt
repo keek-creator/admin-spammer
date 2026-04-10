@@ -1,0 +1,142 @@
+local Players = game:GetService("Players")
+local TextChatService = game:GetService("TextChatService")
+
+local player = Players.LocalPlayer
+local channel = TextChatService
+	:WaitForChild("TextChannels")
+	:WaitForChild("RBXGeneral")
+
+-- GUI
+local gui = Instance.new("ScreenGui")
+gui.Name = "AdminPanel"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.fromOffset(200, 360)
+frame.AnchorPoint = Vector2.new(1, 0.5)
+frame.Position = UDim2.fromScale(1, 0.55)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 14)
+
+-- Allow Button
+local allowBtn = Instance.new("TextButton", frame)
+allowBtn.Size = UDim2.fromOffset(170, 45)
+allowBtn.Position = UDim2.fromOffset(15, 15)
+allowBtn.Text = "Allow"
+allowBtn.Font = Enum.Font.GothamBold
+allowBtn.TextSize = 18
+allowBtn.TextColor3 = Color3.new(1, 1, 1)
+allowBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
+allowBtn.BorderSizePixel = 0
+Instance.new("UICorner", allowBtn).CornerRadius = UDim.new(0, 12)
+
+local strokeAllow = Instance.new("UIStroke", allowBtn)
+strokeAllow.Color = Color3.fromRGB(170, 0, 255)
+strokeAllow.Thickness = 1.5
+strokeAllow.Transparency = 0.2
+
+-- Kick Button
+local kickBtn = Instance.new("TextButton", frame)
+kickBtn.Size = UDim2.fromOffset(170, 45)
+kickBtn.Position = UDim2.fromOffset(15, 65)
+kickBtn.Text = "Kick"
+kickBtn.Font = Enum.Font.GothamBold
+kickBtn.TextSize = 18
+kickBtn.TextColor3 = Color3.new(1, 1, 1)
+kickBtn.BackgroundColor3 = Color3.fromRGB(120, 0, 0)
+kickBtn.BorderSizePixel = 0
+Instance.new("UICorner", kickBtn).CornerRadius = UDim.new(0, 12)
+
+local strokeKick = Instance.new("UIStroke", kickBtn)
+strokeKick.Color = Color3.fromRGB(170, 0, 255)
+strokeKick.Thickness = 1.5
+strokeKick.Transparency = 0.2
+
+-- Button Functions
+allowBtn.MouseButton1Click:Connect(function()
+	game:GetService("ReplicatedStorage")
+		:WaitForChild("Packages")
+		:WaitForChild("Net")
+		:WaitForChild("RE/PlotService/ToggleFriends")
+		:FireServer()
+end)
+
+kickBtn.MouseButton1Click:Connect(function()
+	player:Kick("error code 067")
+end)
+
+-- Player List
+local list = Instance.new("ScrollingFrame", frame)
+list.Size = UDim2.fromOffset(170, 185)
+list.Position = UDim2.fromOffset(15, 125)
+list.CanvasSize = UDim2.new(0, 0, 0, 0)
+list.ScrollBarImageTransparency = 0.3
+list.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+list.BorderSizePixel = 0
+Instance.new("UICorner", list).CornerRadius = UDim.new(0, 10)
+
+-- Run Commands
+local function runCommands(target)
+	local cmds = {
+		";rocket ",
+		";balloon ",
+		";inverse ",
+		";tiny ",
+		";morph ",
+		";jumpscare "
+	}
+
+	for _, cmd in ipairs(cmds) do
+		channel:SendAsync(cmd .. target)
+		task.wait(0.05)
+	end
+end
+
+-- Refresh List
+local function refreshList()
+	list:ClearAllChildren()
+	local y = 0
+
+	for _, plr in ipairs(Players:GetPlayers()) do
+		if plr ~= player then
+			local b = Instance.new("TextButton", list)
+			b.Size = UDim2.new(1, -10, 0, 30)
+			b.Position = UDim2.new(0, 5, 0, y)
+			b.Text = plr.Name
+			b.Font = Enum.Font.Gotham
+			b.TextSize = 16
+			b.TextColor3 = Color3.new(1, 1, 1)
+			b.BackgroundColor3 = Color3.fromRGB(45, 45, 65)
+			b.BorderSizePixel = 0
+			Instance.new("UICorner", b).CornerRadius = UDim.new(0, 8)
+
+			b.MouseButton1Click:Connect(function()
+				runCommands(plr.Name)
+			end)
+
+			y += 35
+		end
+	end
+
+	list.CanvasSize = UDim2.new(0, 0, 0, y)
+end
+
+refreshList()
+Players.PlayerAdded:Connect(refreshList)
+Players.PlayerRemoving:Connect(refreshList)
+
+-- Discord Label
+local discordLabel = Instance.new("TextLabel", frame)
+discordLabel.Size = UDim2.fromOffset(170, 30)
+discordLabel.Position = UDim2.fromOffset(15, 320) -- debajo de la lista
+discordLabel.BackgroundTransparency = 1
+discordLabel.Text = "Discord: fNjyk6V8HF"
+discordLabel.Font = Enum.Font.GothamBold
+discordLabel.TextSize = 14
+discordLabel.TextColor3 = Color3.fromRGB(170, 0, 255)
+discordLabel.TextXAlignment = Enum.TextXAlignment.Left
+discordLabel.TextWrapped = true
