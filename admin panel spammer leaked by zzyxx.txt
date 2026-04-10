@@ -30,7 +30,7 @@ allowBtn.Text = "Allow"
 allowBtn.Font = Enum.Font.GothamBold
 allowBtn.TextSize = 18
 allowBtn.TextColor3 = Color3.new(1, 1, 1)
-allowBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
+allowBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 allowBtn.BorderSizePixel = 0
 Instance.new("UICorner", allowBtn).CornerRadius = UDim.new(0, 12)
 
@@ -47,7 +47,7 @@ kickBtn.Text = "Kick"
 kickBtn.Font = Enum.Font.GothamBold
 kickBtn.TextSize = 18
 kickBtn.TextColor3 = Color3.new(1, 1, 1)
-kickBtn.BackgroundColor3 = Color3.fromRGB(120, 0, 0)
+kickBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 kickBtn.BorderSizePixel = 0
 Instance.new("UICorner", kickBtn).CornerRadius = UDim.new(0, 12)
 
@@ -134,7 +134,7 @@ local discordLabel = Instance.new("TextLabel", frame)
 discordLabel.Size = UDim2.fromOffset(170, 30)
 discordLabel.Position = UDim2.fromOffset(15, 320) -- debajo de la lista
 discordLabel.BackgroundTransparency = 1
-discordLabel.Text = "Discord: fNjyk6V8HF"
+discordLabel.Text = "Discord: .gg/JFBEThr9f"
 discordLabel.Font = Enum.Font.GothamBold
 discordLabel.TextSize = 14
 discordLabel.TextColor3 = Color3.fromRGB(170, 0, 255)
